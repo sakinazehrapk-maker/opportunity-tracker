@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"content="width=device-width, initial-scale=1.0">
+    <title>opportunity tracker</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>opportunity tracker</h1>
+            <form id="opportunityForm"></form>
+            <input type="text" id="title" placeholder="opportunity title required">
+            <select id="category">
+                <option>competition</option>
+                <option>internship</option>
+                <option>scholarship</option>
+                <option>confrence</option>
+            </select>
+            <input type="text" id="organization" placeholder="organization">
+            <input type="date" id="deadline" required>
+            <input type="url" id="link" placeholder="opportunity link">
+            <textarea id="notes" placeholder="notes"></textarea>
+            <button type="submit">add opportunity</button>
+        </form>
+        <div id="opportunityList"></div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>

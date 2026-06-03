@@ -1,7 +1,7 @@
 const form=document.getElementById("opportunityForm");
 const opportunityList=document.getElementById("opportunityList");
 
-let opportunities=[];
+let opportunities=JSON.parse(localStorage.getItem("opportunities"))||[];
 form.addEventListener("submit", function(e){
     e.preventDefault();
     const opportunity={
@@ -12,10 +12,14 @@ form.addEventListener("submit", function(e){
         notes:document.getElementById("notes").value
     };
     opportunities.push(opportunity);
+    saveToLocalStorage();
 
     displayOpportunities();
     form.reset();
 });
+saveToLocalStorage();{
+    localStorage.setItem("opportunities", JSON.stringify(opportunities));
+}
 function displayOpportunities(){
     opportunityList.innerHTML="";
     opportunities.forEach(opportunity=> {
@@ -28,7 +32,14 @@ function displayOpportunities(){
             <p><strong>Deadline:</strong> ${opportunity.deadline}</p>
             <p><a href="${opportunity.link}" target="_blank">Visit Link</a></p>
             <p>${opportunity.notes}</p>
+            <button onclick="deleteOpportunity(${index})">delete</button>
         `;
         opportunityList.appendChild(card);
     });
 }
+function deleteOpportunity(index){
+    opportunities.splice(index,1);
+    saveToLocalStorage();
+    displayOpportunities();
+}
+displayOpportunities();
