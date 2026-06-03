@@ -16,6 +16,7 @@ form.addEventListener("submit", function(e){
     saveToLocalStorage();
 
     displayOpportunities();
+    updateDashboard();
     form.reset();
 });
 function saveToLocalStorage(){
@@ -59,11 +60,30 @@ function displayOpportunities(){
 }
 function deleteOpportunity(index){
     opportunities.splice(index,1);
+    updateDashboard();
     saveToLocalStorage();
     displayOpportunities();
 }
 displayOpportunities();
+updateDashboard();
 
+function updateDashboard() {
+    const total = opportunities.length;
+    let upcoming = 0;
+    let expired = 0;
+    const today = new Date();
+    opportunities.forEach(opportunity => {
+        const deadlineDate = new Date(opportunity.deadline);
+        if (deadlineDate < today) {
+            expired++;
+        } else {
+            upcoming++;
+        }
+    });
+    document.getElementById("total").innerText = `Total: ${total}`;
+    document.getElementById("upcoming").innerText = `Upcoming: ${upcoming}`;
+    document.getElementById("expired").innerText = `Expired: ${expired}`;
+}
 const themeToggle=document.getElementById("themeToggle");
 if(localStorage.getItem("theme")==="dark"){
     document.body.classList.add("dark");

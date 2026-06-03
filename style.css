@@ -72,3 +72,13 @@ button{
 .card:hover{
     transform:scale (1.01);
 }
+#dashboard{
+    background: var(--card,white);
+    padding:15px;
+    border-radius: 10px;
+    margin-bottom:15px;
+}
+#dashboard p{
+    margin:5px 0;
+    font-weight: bold;
+}
