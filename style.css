@@ -1,9 +1,50 @@
+:root{
+    --bg: #f4f4f4;
+    --card: #ffffff;
+    --text:#000000;
+    --accent:#2d6a4f;
+}
+body.dark{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --text:#f1f5f9;
+    --accent:#38bdf8;
+}
 body{
     font-family: Arial, sans-serif;
-    background:#f4f4f4;
-    margin: 0;
-    padding: 20px;
+    background:var(--bg);
+    color:var(--text);
+    margin:0;
+    padding:20px;
+    transition:0.3s ease;
 }
+.container{
+    max-width:800px;
+    margin:auto;
+}
+h1{
+    text-align:center;
+}
+form{
+    background:var(--card);
+    padding:20px;
+    border-radius:10px;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.card{
+    background: var(--card);
+    padding:15px;
+    margin-top:15px;
+    border-radius: 10px;
+}
+button{
+    cursor: pointer;
+    padding:10px;
+}
+
     .container{
         max-width: 800px;
         margin:auto;
@@ -11,14 +52,7 @@ body{
 h1{
     text-align:center;
 }
-form{
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    display:flex;
-    flex-direction: column;
-    gap:10px;
-}
+
 input,
 select,
 textarea,
@@ -29,9 +63,12 @@ button{
 button{
     cursor:pointer;
 }
+.card p{
+    margin: 5px 0;
+}
 .card{
-    background: #f4f4f4;
-    padding:15px;
-    margin-top:15px;
-    border-radius:10px;
+    transition:0.2s ease;
+}
+.card:hover{
+    transform:scale (1.01);
 }
