@@ -16,6 +16,7 @@ form.addEventListener("submit", function(e){
     };
     opportunities.push(opportunity);
     saveToLocalStorage();
+    updateAnalytics();
 
     displayOpportunities();
     updateDashboard();
@@ -89,9 +90,11 @@ function deleteOpportunity(index){
     updateDashboard();
     saveToLocalStorage();
     displayOpportunities();
+    updateAnalytics();
 }
 displayOpportunities();
 updateDashboard();
+updateAnalytics();
 
 function updateDashboard() {
     const total = opportunities.length;
@@ -126,5 +129,23 @@ themeToggle.addEventListener("click", ()=> {
     }
 });
 searchInput.addEventListener("input", displayOpportunities);
-
 filterCategory.addEventListener("change", displayOpportunities);
+function updateAnalytics(){
+    const total = opportunities.length;
+    let internship = 0;
+    let scholarship = 0;
+    let competition = 0;
+    let conference = 0;
+    opportunities.forEach(opportunity => {
+        const category = opportunity.category.toLowerCase();
+        if(category === "internship") internship++;
+        else if(category === "scholarship") scholarship++;
+        else if(category === "competition") competition++;
+        else if(category === "conference") conference++;
+    });
+    document.getElementById("total").innerText = `Total: ${total}`;
+    document.getElementById("internshipCount").innerText = `Internships: ${internship}`;
+    document.getElementById("scholarshipCount").innerText = `Scholarships: ${scholarship}`;
+    document.getElementById("competitionCount").innerText = `Competitions: ${competition}`;
+    document.getElementById("conferenceCount").innerText = `Conferences: ${conference}`;
+}
