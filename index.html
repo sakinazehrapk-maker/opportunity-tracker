@@ -30,6 +30,20 @@
             <textarea id="notes" placeholder="notes"></textarea>
             <button type="submit">add opportunity</button>
         </form>
+        <div class="controls">
+            <input 
+            type="text"
+            id="searchInput"
+            placeholder="search opportunities..."
+            >
+            <select id="filterCategory">
+                <option value="all">all categories</option>
+                <option value="competition">competition</option>
+                <option value="internship">internship</option>
+                <option value="scholarship">scholarship</option>
+                <option value="confrence">conference</option>
+            </select>
+            </div>
         <div id="opportunityList"></div>
         </div>
         <script src="script.js"></script>

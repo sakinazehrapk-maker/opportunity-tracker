@@ -1,5 +1,7 @@
 const form=document.getElementById("opportunityForm");
 const opportunityList=document.getElementById("opportunityList");
+const searchInput = document.getElementById("searchInput");
+const filterCategory = document.getElementById("filterCategory");
 
 let opportunities=JSON.parse(localStorage.getItem("opportunities"))||[];
 form.addEventListener("submit", function(e){
@@ -24,7 +26,19 @@ function saveToLocalStorage(){
 }
 function displayOpportunities(){
     opportunityList.innerHTML = "";
-    opportunities.forEach((opportunity, index) => {
+    const searchTerm = searchInput.value.toLowerCase();
+    const selectedCategory = filterCategory.value;
+    opportunities
+    .filter(opportunity =>{
+        const matchesSearch=
+        opportunity.title.toLowerCase().includes(searchTerm)||
+        opportunity.organization.toLowerCase().includes(searchTerm);
+        const matchesCategory=
+        selectedCategory==="all"||
+        opportunity.category.toLowerCase()===selectedCategory;
+        return matchesSearch && matchesCategory;
+    })
+.forEach((opportunity, index) => {
         const card = document.createElement("div");
         card.classList.add("card");
         const today = new Date();
@@ -99,3 +113,6 @@ themeToggle.addEventListener("click", ()=> {
         localStorage.setItem("theme", "light");
     }
 });
+searchInput.addEventListener("input", displayOpportunities);
+
+filterCategory.addEventListener("change", displayOpportunities);
