@@ -28,8 +28,7 @@ function displayOpportunities(){
     opportunityList.innerHTML = "";
     const searchTerm = searchInput.value.toLowerCase();
     const selectedCategory = filterCategory.value;
-    opportunities
-    .filter(opportunity =>{
+    opportunities.filter(opportunity => {
         const matchesSearch=
         opportunity.title.toLowerCase().includes(searchTerm)||
         opportunity.organization.toLowerCase().includes(searchTerm);
@@ -37,6 +36,12 @@ function displayOpportunities(){
         selectedCategory==="all"||
         opportunity.category.toLowerCase()===selectedCategory;
         return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+    const dateA = new Date(a.deadline);
+    const dateB = new Date(b.deadline);
+
+    return dateA - dateB;
     })
 .forEach((opportunity, index) => {
         const card = document.createElement("div");
@@ -47,16 +52,23 @@ function displayOpportunities(){
         const daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         let statusText = "";
         let statusColor = "";
-        if (daysLeft < 0) {
-            statusText = "Expired";
-            statusColor = "red";
-        } else if (daysLeft === 0) {
-            statusText = "Last day";
-            statusColor = "orange";
-        } else {
-            statusText = `✅ ${daysLeft} days left`;
-            statusColor = "green";
-        }
+        let borderColor = "";
+       if (daysLeft < 0) {
+        statusText="expired";
+        statusColor="red";
+        borderColor="red";
+       }
+       else if(daysLeft <=3){
+        statusText = ` ${daysLeft} days left`;
+        statusColor="orange";
+        borderColor="orange";
+       }
+       else{
+        statusText = `✅ ${daysLeft} days left`;
+        statusColor="green";
+        borderColor="green";
+       }
+       card.style.borderLeft = `6px solid ${borderColor}`;
         card.innerHTML = `
             <h3>${opportunity.title}</h3>
             <p><strong>Category:</strong> ${opportunity.category}</p>
