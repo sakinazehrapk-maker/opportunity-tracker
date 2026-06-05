@@ -18,12 +18,15 @@
                 </div>
             <div id="analytics">
                 <h2>analytics</h2>
-                <p id="total">total:0</p>
-                <p id="internshipcount"></p>
-                <p id="scholarshipCount"></p>
-                <p id="competitionCount"></p>
-                <p id="conferenceCount"></p>
-                </div>
+                <p id="analyticsTotal">total:0</p>
+                <p id="internshipCount">internships:0</p>
+                <p id="scholarshipCount">scholarships:0</p>
+                <p id="competitionCount">competitions:0</p>
+                <p id="conferenceCount">Conferences:0</p>
+            </div>
+                <div id="chartContainer">
+                <canvas id="categoryChart"></canvas>
+            </div>
             <form id="opportunityForm">
             <input type="text" id="title" placeholder="opportunity title required">
             <select id="category">
@@ -49,11 +52,12 @@
                 <option value="competition">competition</option>
                 <option value="internship">internship</option>
                 <option value="scholarship">scholarship</option>
-                <option value="confrence">conference</option>
+                <option value="conference">conference</option>
             </select>
             </div>
         <div id="opportunityList"></div>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
         <script src="script.js"></script>
     </body>
 </html>

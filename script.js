@@ -2,6 +2,7 @@ const form=document.getElementById("opportunityForm");
 const opportunityList=document.getElementById("opportunityList");
 const searchInput = document.getElementById("searchInput");
 const filterCategory = document.getElementById("filterCategory");
+let chart = null;
 
 let opportunities=JSON.parse(localStorage.getItem("opportunities"))||[];
 form.addEventListener("submit", function(e){
@@ -17,7 +18,7 @@ form.addEventListener("submit", function(e){
     opportunities.push(opportunity);
     saveToLocalStorage();
     updateAnalytics();
-
+    updateChart();
     displayOpportunities();
     updateDashboard();
     form.reset();
@@ -41,7 +42,6 @@ function displayOpportunities(){
     .sort((a, b) => {
     const dateA = new Date(a.deadline);
     const dateB = new Date(b.deadline);
-
     return dateA - dateB;
     })
 .forEach((opportunity, index) => {
@@ -91,10 +91,12 @@ function deleteOpportunity(index){
     saveToLocalStorage();
     displayOpportunities();
     updateAnalytics();
+    updateChart();
 }
 displayOpportunities();
 updateDashboard();
 updateAnalytics();
+updateChart();
 
 function updateDashboard() {
     const total = opportunities.length;
@@ -143,9 +145,44 @@ function updateAnalytics(){
         else if(category === "competition") competition++;
         else if(category === "conference") conference++;
     });
-    document.getElementById("total").innerText = `Total: ${total}`;
+    document.getElementById("analyticsTotal").innerText =`Total: ${total}`;
     document.getElementById("internshipCount").innerText = `Internships: ${internship}`;
     document.getElementById("scholarshipCount").innerText = `Scholarships: ${scholarship}`;
     document.getElementById("competitionCount").innerText = `Competitions: ${competition}`;
     document.getElementById("conferenceCount").innerText = `Conferences: ${conference}`;
 }
+
+function updateChart(){
+
+    const ctx = document.getElementById("categoryChart");
+    if(!ctx) return;
+
+    let internship=0;
+    let scholarship=0;
+    let competition=0;
+    let conference=0;
+
+    opportunities.forEach(opportunity=>{
+        switch(opportunity.category.toLowerCase()){
+            case "internship": internship++; break;
+            case "scholarship": scholarship++; break;
+            case "competition": competition++; break;
+            case "conference": conference++; break;
+        }
+    });
+
+    if(chart !== null){
+        chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+        type: "pie",
+        data: {
+            labels: ["Internships","Scholarships","Competitions","Conferences"],
+            datasets: [{
+                data: [internship, scholarship, competition, conference]
+            }]
+        }
+    });
+}
+    

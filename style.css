@@ -1,23 +1,33 @@
 :root{
-    --bg: #f4f4f4;
-    --card: #ffffff;
-    --text:#000000;
-    --accent:#2d6a4f;
+    --bg:#f4f4f4;
+    --card:white;
+    --text:black;
+    --border:#ddd;
 }
+
 body.dark{
-    --bg:#0f172a;
-    --card:#1e293b;
-    --text:#f1f5f9;
-    --accent:#38bdf8;
+    --bg:#121212;
+    --card:#1e1e1e;
+    --text:white;
+    --border:#333;
 }
+
 body{
-    font-family: Arial, sans-serif;
     background:var(--bg);
     color:var(--text);
-    margin:0;
-    padding:20px;
-    transition:0.3s ease;
+    transition:0.3s;
 }
+
+.card,
+#dashboard,
+#analytics,
+form,
+#chartContainer{
+    background:var(--card);
+    color:var(--text);
+    border:1px solid var(--border);
+}
+
 .container{
     max-width:800px;
     margin:auto;
@@ -33,7 +43,6 @@ form{
     flex-direction: column;
     gap:10px;
 }
-
 .card{
     background: var(--card);
     padding:15px;
@@ -98,8 +107,17 @@ button{
     border-radius: 10px;
     margin-bottom: 15px;
 }
-
 #analytics p{
     margin: 5px 0;
     font-weight: bold;
+}
+#chartContainer{
+    width:100%;
+    max-width:450px;
+    margin:20px auto;
+}
+
+canvas{
+    width:100%;
+    height:300px;
 }
